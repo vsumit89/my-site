@@ -49,23 +49,25 @@ export function Navbar() {
             <li
               style={{
                 backgroundColor:
-                  selectedLink === index
-                    && styles.selected.backgroundColor
+                  selectedLink === index && styles.selected.backgroundColor,
               }}
               onClick={() => setSelectedLink(index)}
             >
-              <a href={url} style={{
-                color:
-                  selectedLink === index
-                    ? styles.selected.color
-                    : styles.notSelected.color,
-                fontWeight:
-                  selectedLink === index
-                    ? styles.selected.fontWeight
-                    : styles.notSelected.fontWeight
-
-              }}
-              >{name}</a>
+              <a
+                href={url}
+                style={{
+                  color:
+                    selectedLink === index
+                      ? styles.selected.color
+                      : styles.notSelected.color,
+                  fontWeight:
+                    selectedLink === index
+                      ? styles.selected.fontWeight
+                      : styles.notSelected.fontWeight,
+                }}
+              >
+                {name}
+              </a>
             </li>
           ))}
         </ul>

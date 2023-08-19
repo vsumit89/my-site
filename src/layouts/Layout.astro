@@ -38,9 +38,11 @@ const links = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link href="https://fonts.cdnfonts.com/css/monalisa-font" rel="stylesheet">
-                
-                
+    <link
+      href="https://fonts.cdnfonts.com/css/monalisa-font"
+      rel="stylesheet"
+    />
+
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -53,45 +55,44 @@ const links = [
   <body>
     <Navbar client:load />
     <div class="main-wrapper">
-			<div class="main-page">
-				<slot />
-			</div>
-		</div>
+      <div class="main-page">
+        <slot />
+      </div>
+    </div>
   </body>
 </html>
 <style>
   :root {
-		--heading-font-color: #111;
-		--text-primary-color: #363636;
-		--font-size-3xl: 3.75rem;
-		--font-size-xxl: 3rem;
-		--font-size-xl: 2.5rem;
-		--font-size-lg: 2rem;
-		--font-size-md: 1.5rem;
-		--font-size-sm: 1.25rem;
-		--font-size-xs: 1rem;
+    --heading-font-color: #111;
+    --text-primary-color: #363636;
+    --font-size-3xl: 3.75rem;
+    --font-size-xxl: 3rem;
+    --font-size-xl: 2.5rem;
+    --font-size-lg: 2rem;
+    --font-size-md: 1.5rem;
+    --font-size-sm: 1.25rem;
+    --font-size-xs: 1rem;
 
-		--font-weight-regular: 400;
-		--font-weight-medium: 500;
-		--font-weight-semibold: 600;
-		--font-weight-bold: 700;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
   }
 
-	.main-wrapper {
-		display: flex;
-		justify-content: center;
-		margin-top: 40px;
-	}
+  .main-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
 
-	.main-page {
-		width: 100%;
-		max-width: 880px;
-	}
+  .main-page {
+    width: 100%;
+    max-width: 880px;
+  }
 
   html {
     font-family: monospace;
   }
-
 
   body {
     margin: 0;
@@ -100,15 +101,14 @@ const links = [
 
   :global(h1) {
     font-size: var(--font-size-3xl);
-		color: var(--heading-font-color);
-		font-weight: var(--font-weight-semibold);
+    color: var(--heading-font-color);
+    font-weight: var(--font-weight-semibold);
   }
 
   :global(h2) {
-		font-size: var(--font-size-xl);
-		color: var(--heading-font-color);
-		font-weight: var(--font-weight-bold);
-
+    font-size: var(--font-size-xl);
+    color: var(--heading-font-color);
+    font-weight: var(--font-weight-bold);
   }
 
   :global(code) {

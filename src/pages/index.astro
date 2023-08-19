@@ -1,54 +1,133 @@
 ---
+import githubLogo from "../images/github.svg";
+import linkedinLogo from "../images/linkedin.svg";
+import twitterLogo from "../images/twitter.svg";
+import instagramLogo from "../images/instagram.svg";
+
 import Layout from "../layouts/Layout.astro";
+
+const links = [
+  {
+    logo: githubLogo,
+    link: "https://github.com/vsumit89",
+  },
+  {
+    logo: linkedinLogo,
+    link: "https://www.linkedin.com/in/vsumit89/",
+  },
+  {
+    logo: twitterLogo,
+    link: "https://twitter.com/vsumit030201",
+  },
+  {
+    logo: instagramLogo,
+    link: "https://www.instagram.com/randomsumit",
+  },
+];
 ---
 
 <Layout title="Home">
-	<div class="intro-section">
-		<h1>
-			Full Stack Developer building seamless interfaces and powerful APIs.
-		</h1>
-		<p>
-			I'm Sumit Vishwakarma, a India based Full Stack Developer with over 2 and a half years of development experience. I specialize in developing robust API's in Golang and building seamless interfaces in
-			ReactJS/NextJS, all while utilizing docker for containerization. 
-		</p>
-		<p>
-			I'm currently working as full stack developer at <a href="https://factlylabs.com/" class="links" target="_blank">Factly Media and Research</a> where we are building <a target="_blank" class="links" href="https://github.com/factly/dega">Dega</a>(a open source headless CMS) and <a class="links" href="https://tagore.factly.in">TagoreAI</a>(a generative AI platform which leverages the power of generative AI to help journalists, researchers and fact checkers to create content).
-		</p>
-		<p>
-			I have also worked as a freelancer for <a href="https://jumbleng.com/" class="links" target="_blank">JumbleNG</a> where I was responsible for building the <a class="links" href="https://shipment.jumbleng.com/">shipment platform</a> from scratch.
-		</p>
-	</div>
-	<hr id="line" />
+  <div class="intro-section">
+    <h1>
+      Full Stack Developer building powerful APIs and seamless interfaces.
+    </h1>
+    <p>
+      I'm Sumit Vishwakarma, a India based Full Stack Developer with over 2 and
+      a half years of development experience. I specialize in developing robust
+      API's in Golang and building seamless interfaces in ReactJS/NextJS, all
+      while utilizing docker for containerization.
+    </p>
+    <p>
+      I'm currently working as full stack developer at <a
+        href="https://factlylabs.com/"
+        class="links"
+        target="_blank">Factly Media and Research</a
+      > where we are building <a
+        target="_blank"
+        class="links"
+        href="https://github.com/factly/dega">Dega</a
+      >(a open source headless CMS) and <a
+        class="links"
+        href="https://tagore.factly.in">TagoreAI</a
+      >(a generative AI platform which leverages the power of generative AI to
+      help journalists, researchers and fact checkers to create content).
+    </p>
+    <p>
+      I have also worked as a freelancer for <a
+        href="https://jumbleng.com/"
+        class="links"
+        target="_blank">JumbleNG</a
+      > where I was responsible for building the <a
+        class="links"
+        href="https://shipment.jumbleng.com/">shipment platform</a
+      > from scratch.
+    </p>
+  </div>
+  <div class="link-section">
+    {
+      links.map((link) => (
+        <a href={link.link} target="_blank">
+          <img src={link.logo} alt="logo" />
+        </a>
+      ))
+    }
+		<a id="email-link" href="mailto: vsumit030201@gmail.com">Email Me!</a>
+  </div>
+  <hr id="line" />
 </Layout>
 
 <style>
-		.links {
-		border-bottom-width: 3px;
+  .links {
+    border-bottom-width: 3px;
     border-bottom-style: solid;
     border-bottom-color: #d9d9d9;
-		text-decoration: none;
-		color: var(--text-primary-color);
-	}
+    text-decoration: none;
+    color: var(--text-primary-color);
+  }
 
-	hr {
-		width: 100%;
-	}
+  hr {
+    width: 100%;
+  }
 
-	#line {
+  #line {
     margin-block: var(--font-size-3xl);
     border: none;
     background-image: url(../images/divider.svg);
     background-position: 0;
     background-repeat: repeat-x;
     height: 6px;
-	}
-	.links:hover {
-		border-bottom-color: blueviolet;
-		color: blueviolet;
-	}
-	p {
-		font-size: var(--font-size-sm);
-		color: var(--text-primary-color);
-		line-height: var(--font-size-xl);
+  }
+  .links:hover {
+    border-bottom-color: blueviolet;
+    color: blueviolet;
+  }
+  p {
+    font-size: var(--font-size-sm);
+    color: var(--text-primary-color);
+    line-height: var(--font-size-xl);
+  }
+
+  .link-section {
+    margin-top: var(--font-size-3xl);
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+	#email-link {
+		padding: 8px 16px;
+		border: 1px solid white;
+		/* background-color: var(--text-primary-color); */
+		background-color: black;
+		color: white;
+		border-radius: 16px;
+		cursor: pointer;
+		text-decoration: none;
 	}
 </style>
