@@ -50,8 +50,7 @@ export function Navbar() {
               style={{
                 backgroundColor:
                   selectedLink === index
-                    ? styles.selected.backgroundColor
-                    : styles.notSelected.backgroundColor
+                    && styles.selected.backgroundColor
               }}
               onClick={() => setSelectedLink(index)}
             >
