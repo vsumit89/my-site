@@ -11,6 +11,10 @@ export function Navbar() {
       url: "/",
     },
     {
+      name: "Blog",
+      url: "/blog",
+    },
+    {
       name: "About",
       url: "/about",
     },
@@ -21,7 +25,7 @@ export function Navbar() {
     {
       name: "Tools",
       url: "/contact",
-    },
+    }
   ];
 
   const styles = {
