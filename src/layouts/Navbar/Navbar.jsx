@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signLogo from "../../images/signature.png";
 import "./navbar.css";
 
@@ -28,6 +28,12 @@ export function Navbar() {
     }
   ];
 
+  useEffect(() => {
+    const path = window.location.pathname;
+    const index = links.findIndex((link) => link.url === path);
+    setSelectedLink(index);
+  }, []);
+  
   const styles = {
     selected: {
       color: "black",
