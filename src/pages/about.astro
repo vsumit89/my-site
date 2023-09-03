@@ -1,0 +1,24 @@
+---
+import sumit from '../images/sumit.png';
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title='About me'>
+    <div class="img-container">
+      <img src={sumit} alt="sumit" />
+    </div>
+</Layout>
+
+
+<style>
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    width: 600px;
+    height: 400px;
+  }
+</style>

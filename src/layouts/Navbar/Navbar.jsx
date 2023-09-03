@@ -33,7 +33,7 @@ export function Navbar() {
     const index = links.findIndex((link) => link.url === path);
     setSelectedLink(index);
   }, []);
-  
+
   const styles = {
     selected: {
       color: "black",
@@ -81,6 +81,7 @@ export function Navbar() {
             </li>
           ))}
         </ul>
+        
       </div>
     </>
   );
