@@ -6,26 +6,26 @@ export function Navbar() {
   const [selectedLink, setSelectedLink] = useState(0);
 
   const links = [
-    {
-      name: "Home",
-      url: "/",
-    },
-    {
-      name: "Blog",
-      url: "/blog",
-    },
-    {
-      name: "About",
-      url: "/about",
-    },
-    {
-      name: "Project",
-      url: "/blog",
-    },
-    {
-      name: "Tools",
-      url: "/contact",
-    }
+    // {
+    //   name: "Home",
+    //   url: "/",
+    // },
+    // {
+    //   name: "Blog",
+    //   url: "/blog",
+    // },
+    // {
+    //   name: "About",
+    //   url: "/about",
+    // },
+    // {
+    //   name: "Project",
+    //   url: "/blog",
+    // },
+    // {
+    //   name: "Tools",
+    //   url: "/contact",
+    // }
   ];
 
   useEffect(() => {
