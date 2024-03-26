@@ -1,0 +1,45 @@
+---
+const links = [
+    {
+        title: "me",
+        url: "/",
+    },
+    {
+        title: "blog",
+        url: "/about",
+    },
+    {
+        title: "now",
+        url: "/contact",
+    },
+    {
+        title: "favorites",
+        url: "/blog",
+    },
+];
+---
+
+<div class="flex justify-center gap-x-4 flex-wrap ibm-plex-regular items-center">
+    {
+        links.map((link) => (
+            <a
+                href={link.url}
+                class="text-lg"
+            >
+                {link.title}
+            </a>
+        ))
+    }
+    <a>
+        <img src="/moon.svg" alt="moon-icon" class="text-black text-lg">
+    </a>
+</div>
+
+<!-- <style>
+	/* IBM Plex Sans for regular font  */
+	.ibm-plex-regular {
+		font-family: "IBM Plex Sans", sans-serif;
+		font-weight: 400;
+		font-style: normal;
+	}
+</style> -->
