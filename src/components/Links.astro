@@ -6,20 +6,20 @@ const links = [
     },
     {
         title: "blog",
-        url: "/about",
+        url: "/",
     },
     {
         title: "now",
-        url: "/contact",
+        url: "/",
     },
     {
         title: "favorites",
-        url: "/blog",
+        url: "/",
     },
 ];
 ---
 
-<div class="flex justify-center gap-x-4 flex-wrap ibm-plex-regular items-center">
+<div class="flex justify-center gap-x-4 flex-wrap ibm-plex-regular items-center md:flex-col md:gap-y-2 md:justify-start md:items-start">
     {
         links.map((link) => (
             <a
