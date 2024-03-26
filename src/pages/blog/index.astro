@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/eachPage.css';
+
+
+let posts = await Astro.glob('./posts/*.md');
+let postList = posts.map((post) => {
+  return {
+    posts: post.frontmatter
+  }
+});
+
+---
+
+<Layout title="Home">
+  <div class="intro-section">
+    <h1>
+      Blogs
+    </h1>
+    <p>
+      I like to document my learning by writing blogs on the technologies I am learning and the projects I build as well as to help other developers comprehend the concepts. I also write blogs on my experiences and my thoughts on various topics. 
+    </p>
+  </div>
+  <hr id="line" />
+  <div class="blog-section">
+
+  </div>
+</Layout>
