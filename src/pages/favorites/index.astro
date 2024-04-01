@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/main.astro';
+import Hashtag from '../../components/Hashtag.astro';
+
+const content = {
+    title: 'Favorites'
+}
+
+const tags = ["anime", "thriller", "sci-fi", "podcasts"]
+
+---
+
+<Layout content={content}>
+    <div class="flex flex-col gap-y-4">
+        <h2 class="text-xl font-bold">Favorites Show</h2>
+        <div class="flex flex-row flex-wrap gap-2">
+            {
+                tags.map((tag) => (
+                    <Hashtag tag={tag} />
+                ))
+            }
+        </div>
+    </div>
+</Layout>

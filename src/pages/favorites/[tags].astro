@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/main.astro';
+
+export const getStaticPaths = () => {
+    return [
+        {   
+            params: {
+                tags: 'anime'
+            }
+        },
+        {
+            params: {
+                tags: 'thriller'
+            }
+        },
+        {
+            params: {
+                tags: 'sci-fi'
+            }
+        },
+        {
+            params: {
+                tags: 'podcasts'
+            }
+        },
+    ]
+}
+
+const { tags } = Astro.params
+
+const pageContent = {
+    anime: {
+        movies : ["Your Name"],
+        shows : ["One Piece", "Naruto", "Attack on Titans"]
+    }
+}
+
+const content = {
+    title: 'Favorites - ' + tags
+}
+---
+
+
+<Layout content={content}>
+    <div class="flex flex-col gap-y-4">
+        <h2 class="text-xl font-bold">Favorites Show</h2>
+        <div class="flex flex-col gap-y-2">
+            <h3 class="text-lg font-bold">Movies</h3>
+            {
+                pageContent[tags].movies.map((movie) => (
+                    <p>- {movie}</p>
+                ))
+            }
+            <h3 class="text-lg font-bold">Shows</h3>
+            {
+                pageContent[tags].shows.map((show) => (
+                    <p>- {show}</p>
+                ))
+            }
+        </div>
+    </div>
+</Layout>
