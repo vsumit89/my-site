@@ -32,6 +32,17 @@ const pageContent = {
     anime: {
         movies : ["Your Name"],
         shows : ["One Piece", "Naruto", "Attack on Titans"]
+    },
+    thriller: {
+        movies: ["The bourne series"],
+        shows: ["Breaking Bad"]
+    },
+    "sci-fi": {
+        movies: ["Interstellar"],
+        shows: ["The three body problem"]
+    },
+    podcasts: {
+        shows: ["The Joe Rogan Experience", "Lex Fridman"]
     }
 }
 
@@ -45,18 +56,32 @@ const content = {
     <div class="flex flex-col gap-y-4">
         <h2 class="text-xl font-bold">Favorites Show</h2>
         <div class="flex flex-col gap-y-2">
-            <h3 class="text-lg font-bold">Movies</h3>
             {
-                pageContent[tags].movies.map((movie) => (
-                    <p>- {movie}</p>
-                ))
+                pageContent[tags]?.movies?.length && (
+                <div>
+                    <h3 class="text-lg font-bold">Movies</h3>
+                    {
+                        pageContent[tags].movies.map((movie) => (
+                            <p>- {movie}</p>
+                        ))
+                    }
+                </div>
+                ) 
+            
             }
-            <h3 class="text-lg font-bold">Shows</h3>
             {
-                pageContent[tags].shows.map((show) => (
-                    <p>- {show}</p>
-                ))
+                pageContent[tags]?.shows?.length && (
+                    <div>
+                        <h3 class="text-lg font-bold">Shows</h3>
+                        {
+                            pageContent[tags].shows.map((show) => (
+                                <p>- {show}</p>
+                            ))
+                        }
+                    </div>
+                )
             }
+            <a class="text-blue-600 hover:underline text-sm" href="/favorites">Back</a>
         </div>
     </div>
 </Layout>

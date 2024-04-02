@@ -16,7 +16,7 @@ const tags = ["anime", "thriller", "sci-fi", "podcasts"]
         <div class="flex flex-row flex-wrap gap-2">
             {
                 tags.map((tag) => (
-                    <Hashtag tag={tag} />
+                    <Hashtag tag={tag} isFav={true}/>
                 ))
             }
         </div>

@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/main.astro';
+import Hashtag from '../../components/Hashtag.astro';
+import moment from 'moment';
+
+const content = {
+    title: 'Favorites'
+}
+
+const tags = ["anime", "thriller", "sci-fi", "podcasts"]
+
+const posts = await Astro.glob('./*.md')
+
+let wordCount = 0;
+
+
+posts.forEach((post) => {
+   wordCount += post.rawContent.toString().split(" ").length
+})
+---
+
+<Layout content={content}>
+    <div class="flex flex-col gap-y-4 w-full">
+        <h2 class="text-xl font-bold">Blog Posts</h2>
+        <div class="flex flex-row flex-wrap gap-2">
+            {
+                tags.map((tag) => (
+                    <Hashtag tag={tag} />
+                ))
+            }
+        </div>
+        <span class="text-sm text-gray-500">
+        {posts?.length} posts / {wordCount} words counting on
+        </span>
+        <div class="flex flex-col gap-2">
+            {
+                posts.map((post) => (
+                    <a href={post.url} class="text-base">
+                        <div class="flex flex-row">
+                            <span class="flex-1">{post.frontmatter?.title}</span>
+                            <span class="text-sm text-gray-500">{moment(post.frontmatter?.date).format('Do MMMM, YYYY')}</span>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+
+    </div>
+</Layout>

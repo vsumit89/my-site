@@ -1,0 +1,53 @@
+---
+import Links from "../components/Links.astro";
+import Hashtag from "../components/Hashtag.astro";
+import moment from 'moment';
+
+const { content, frontmatter } = Astro.props;
+
+const now = moment();
+
+const daysDifference = now.diff(frontmatter?.date, 'days');
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{content?.title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+	</head>
+	<style>
+		/* IBM Plex Sans for regular font  */
+		body {
+			font-family: "IBM Plex Sans", sans-serif;
+			font-style: normal;
+		}
+	</style>
+	<body>
+		<div class="px-6 mt-10 mx-auto flex flex-col gap-y-6 md:flex md:flex-row md:max-w-4xl md:mt-20 md:items-start">
+			<div class="flex flex-col gap-y-6 md:max-w-[12rem] w-full">
+				<div class="flex justify-center items-center md:justify-start md:items-start">
+					<a class="text-xl font-bold" href="/">सुमित</a> 
+				</div>
+				<Links />
+			</div>
+            <div class="flex flex-col gap-y-4">
+                <h2 class="text-xl font-bold">{frontmatter?.title}</h2>
+                <span class="text-sm text-gray-500">{moment(frontmatter?.date).format('Do MMMM, YYYY')} ({daysDifference} days ago)</span>
+                <div class="flex flex-row flex-wrap gap-2">
+                    <!-- separated the comma separated tags -->
+                    {
+                        frontmatter?.tag?.split(",").map((tag) => (
+                            <Hashtag tag={tag} />
+                        ))
+                    }
+                </div>
+                <slot />
+            </div>
+		</div>
+	</body>
+</html>
