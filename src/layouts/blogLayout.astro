@@ -14,6 +14,7 @@ const daysDifference = now.diff(frontmatter?.date, 'days');
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+        <meta name="description" content={frontmatter?.summary}/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{content?.title}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">

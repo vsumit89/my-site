@@ -3,6 +3,7 @@ title: 'Why this blog?'
 tag: 'personal,first post'
 layout: ../../layouts/blogLayout.astro
 date: 04/01/2024
+summary: the first blog and why this blog exists
 ---
 
 
