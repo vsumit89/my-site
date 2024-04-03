@@ -36,7 +36,7 @@ posts.forEach((post) => {
             {
                 posts.map((post) => (
                     <a href={post.url} class="text-base">
-                        <div class="flex flex-row">
+                        <div class="flex flex-row items-center">
                             <span class="flex-1">{post.frontmatter?.title}</span>
                             <span class="text-sm text-gray-500">{moment(post.frontmatter?.date).format('Do MMMM, YYYY')}</span>
                         </div>
