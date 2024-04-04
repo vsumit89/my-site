@@ -3,6 +3,7 @@ import Links from "../components/Links.astro";
 import Hashtag from "../components/Hashtag.astro";
 import moment from 'moment';
 import '../styles/globals.css'
+import { ViewTransitions } from "astro:transitions";
 
 const { content, frontmatter } = Astro.props;
 
@@ -21,6 +22,7 @@ const daysDifference = now.diff(frontmatter?.date, 'days');
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<ViewTransitions/>
 	</head>
 	<style>
 		/* @tailwind base;
