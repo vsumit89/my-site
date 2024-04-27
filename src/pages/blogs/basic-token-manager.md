@@ -3,7 +3,7 @@ title: "Building a basic token manager"
 tag: 'golang,concurrency'
 layout: ../../layouts/blogLayout.astro
 date: 04/27/2024
-summary: wrote about concurrency in golang
+summary: Learn how to build a basic token manager in Go for handling access tokens required by APIs. This post covers using goroutines for concurrent token generation, caching tokens with atomic operations for thread-safety, and periodic token refreshing based on expiration duration. The token manager simplifies the process of acquiring and managing access tokens needed to consume protected APIs.
 ---
 
 For the past few days I have been regularly working on integrating API's
