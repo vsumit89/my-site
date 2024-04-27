@@ -12,27 +12,26 @@ const posts = await Astro.glob('./*.md')
 
 let wordCount = 0;
 
-// var tags = []
+var tags = []
 
 posts.forEach((post) => {
    wordCount += post.rawContent.toString().split(" ").length    
-   console.log(post.frontmatter)
 })
 
-// var uniqueTagSet = new Set(tags)
+var uniqueTagSet = new Set(tags)
 
-// var unqiqueTags = Array.from(uniqueTagSet)
+var unqiqueTags = Array.from(uniqueTagSet)
 ---
 
 <Layout content={content} summary="List of blogs">
     <div class="flex flex-col gap-y-4 w-full">
         <h2 class="text-xl font-bold">Blog Posts</h2>
         <div class="flex flex-row flex-wrap gap-2">
-            <!-- {
+            {
                 unqiqueTags.map((tag) => (
                     <Hashtag tag={tag} />
                 ))
-            } -->
+            }
         </div>
         <span class="text-sm text-gray-500">
         {posts?.length} posts / {wordCount} words counting on
