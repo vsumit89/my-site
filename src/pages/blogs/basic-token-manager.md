@@ -212,5 +212,5 @@ Then, it calls the <span style="background-color: #cceeff">generatorFunc</span> 
 
 If this is the first token being generated, it sets the <span style="background-color: #cceeff">hasGeneratedFirstToken</span> flag to <span style="background-color: #cceeff">true</span> and sends a value on the <span style="background-color: #cceeff">blockFirstTime</span> channel, allowing the <span style="background-color: #cceeff">GetToken</span> method to unblock and return the newly generated token.
 
-For the whole code refer to <a href="https://github.com/vsumit89/tokenvault" target="_blank" style="color:blue; text-decoration: underline;Ci">github</a> 
+Checkout the full code at <a href="https://github.com/vsumit89/tokenvault" target="_blank" style="color:blue; text-decoration: underline;">Github</a> 
 
