@@ -1,5 +1,5 @@
 ---
-title: 'Concurrency in Golang?'
+title: 'Concurrency in Golang'
 tag: 'golang'
 layout: ../../layouts/blogLayout.astro
 date: 04/03/2024
