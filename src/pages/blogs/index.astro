@@ -17,6 +17,21 @@ posts.forEach((post) => {
    wordCount += post.rawContent.toString().split(" ").length    
 })
 
+posts.sort((a, b) => {
+    // Extract the date from frontmatter of each post
+    const dateA = new Date(a.frontmatter.date);
+    const dateB = new Date(b.frontmatter.date);
+
+    // Compare dates
+    if (dateA < dateB) {
+        return 1; // dateA comes before dateB
+    }
+    if (dateA > dateB) {
+        return -1; // dateA comes after dateB
+    }
+    return 0; // dates are equal
+});
+
 ---
 
 <Layout content={content} summary="List of blogs">
