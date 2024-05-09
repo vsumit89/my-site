@@ -101,7 +101,7 @@ func NewTokenManager(
         duration: *duration,
         generatorFunc: generatorFunc,
         name: name,
-        blockFirstTime: make(chan bool),
+    blockFirstTime: make(chan bool, 2), // making the channel size 2 so it doesn't block the first write
         hasGeneratedFirstToken: false,
     }
     tm.token.Store("")
