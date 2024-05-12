@@ -13,11 +13,11 @@ The most common
 thing in all these API's is (not bad documentation 😅) getting 
 an access token to access protected API's which expires in a certain period of time. 
 
-### Problem Statement I came across:
+## Problem Statement I came across:
 - Generate an access token after some interval and store it
 - Should be easily accessible as it will be required again and again
 
-### Most suggested way to go about this based on discussion with my team was :
+## Most suggested way to go about this based on discussion with my team was :
 - Push it to redis and add some TTL(time to live), if the token's there use it or generate it
 
 Being a gopher for a long time now. Whenever I think of an async task, I think about *go routines* 
@@ -80,7 +80,7 @@ type TokenManager struct {
 }
 ```
 
-### The TokenManager has a few key responsibilities:
+## The TokenManager has a few key responsibilities:
 
 - **Token Generation**: It takes a <span style="background-color: #cceeff">TokenGeneratorFunc</span> as an input, which is a function that generates a new token. This function could be making an API call, performing some cryptographic operation, or any other logic required to generate a token.
 - **Token Refresh**: The <span style="background-color: #cceeff">TokenManager</span> periodically calls the <span style="background-color: #cceeff">TokenGeneratorFunc</span> to refresh the token. The refresh interval is determined by the <span style="background-color: #cceeff">duration</span> field, which specifies the time between token refreshes.
@@ -101,7 +101,9 @@ func NewTokenManager(
         duration: *duration,
         generatorFunc: generatorFunc,
         name: name,
-    blockFirstTime: make(chan bool, 2), // making the channel size 2 so it doesn't block the first write
+        // making the channel size 2 so it 
+        // doesn't block the first write
+        blockFirstTime: make(chan bool, 2), 
         hasGeneratedFirstToken: false,
     }
     tm.token.Store("")

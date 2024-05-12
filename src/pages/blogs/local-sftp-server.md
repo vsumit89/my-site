@@ -8,7 +8,7 @@ summary: Setting up an SFTP server locally with Docker is a breeze. This guide w
 
 Running an SFTP (Secure File Transfer Protocol) server can be tricky, especially if you're not familiar with server administration (like me). But Docker makes it incredibly simple to get an SFTP server up and running in just a few steps. 
 
-### Problem that I faced:
+## Problem that I faced:
 For the past few months I have been working on fintech services interacting with bank API's, which led me to using SFTP for a task.
  
 After I went through some articles on internet on how to setup sftp server locally, I felt really overwhelmed.
@@ -18,17 +18,17 @@ The next idea that came to my mind was is it possible to setup a sftp server thr
 
 Let's start from the start!
 
-### What is SFTP?
+## What is SFTP?
 SFTP stands for Secure File Transfer Protocol. It is a safe way to transfer files over a network. 
 
 SFTP is based on the Secure Shell (SSH) protocol, which encrypts the data being transferred. This means when you transfer files using SFTP, they remain secure and cannot be seen by anyone trying to snoop on them.
 
-### Why Use Docker?
+## Why Use Docker?
 Docker allows you to package an application and its dependencies into a container, which can run consistently across different environments. 
 
 This means you don't have to worry about installing and configuring the SFTP server software yourself – Docker takes care of it all for you.
 
-### Setting up the SFTP Server
+## Setting up the SFTP Server
 1. Create a new directory for your project and navigate to it.
 2. Create a docker-compose.yml file with the following content:
 ```yaml
@@ -89,7 +89,7 @@ docker-compose up
 ```
 
 
-### Connecting to the SFTP Server
+## Connecting to the SFTP Server
 You can connect to the SFTP server using an SFTP client like FileZilla or the command-line sftp utility. 
 Using the command:
 ```shell
