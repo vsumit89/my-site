@@ -1,6 +1,6 @@
 ---
 title: 'Options Pattern in Golang'
-tag: 'golang'
+tag: 'golang,designpattern'
 layout: ../../layouts/blogLayout.astro
 date: 06/30/2024
 summary: This blog discusses the implementation and need of options pattern in Go
