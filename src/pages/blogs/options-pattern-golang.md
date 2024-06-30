@@ -49,9 +49,10 @@ func newServer(opts *ServerOpts) *Server {
 }
 ```
 
-This seems to be working, but the issue is if I want to initialise the server with some default values, I can't. 
+This seems to be working, but the issue is if I want to initialise the server with some default values, I can't. Because 
+I always have to pass the default values as the options because the server variable is dependent on it. Options pattern helps in making implementation more flexible.
 
-### How can we do that ? 
+### How to implement it ? 
 
 Options Pattern 🚀🚀🚀
 
