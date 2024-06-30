@@ -1,0 +1,31 @@
+---
+const links = [
+    {
+        title: "Linked",
+        url: "https://www.linkedin.com/in/vwsumit/",
+    },
+    {
+        title: "Github",
+        url: "https://github.com/vsumit89",
+    },
+    {
+        title: "Twitter",
+        url: "https://x.com/vsumit030201",
+    }
+];
+---
+
+<div class="flex text-sm justify-end gap-x-4 flex-wrap ibm-plex-regular items-center md:flex-row md:justify-end md:items-start">
+    {
+        links.map((link) => (
+            <a
+                target="_blank"
+                href={link.url}
+                class="text-sm text-blue-500"
+            >
+                {link.title}
+            </a>
+        ))
+    }
+</div>
+

@@ -5,6 +5,7 @@ import moment from 'moment';
 import '../styles/globals.css'
 import { ViewTransitions } from "astro:transitions";
 import Posthog from "../components/posthog.astro";
+import Socials from "../components/Socials.astro";
 
 const { content, frontmatter } = Astro.props;
 
@@ -53,6 +54,7 @@ const daysDifference = now.diff(frontmatter?.date, 'days');
                     }
                 </div>
                 <slot />
+				<Socials />
             </div>
 		</div>
 	</body>
