@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/main.astro';
+import Layout from "../layouts/main.astro";
 
 let content = {
-    title: 'Now - What I am upto'
-}
+    title: "Now - What I am upto",
+};
 
 // color of the link
 const linkColor = "text-blue-600";
@@ -11,7 +11,7 @@ const linkColor = "text-blue-600";
 // link of derel sivers site and weichun site
 const siversSite = "https://nownownow.com/about";
 
-const weichunSite = "https://weichun.xyz/now"
+const weichunSite = "https://weichun.xyz/now";
 
 const onHandsList = [
     {
@@ -24,11 +24,6 @@ const onHandsList = [
         url: "https://dataintensive.net/",
     },
     {
-        task: "Building Pdfy on the side",
-        isLink: true,
-        url: "https://github.com/vsumit89/pdfy"
-    },
-    {
         task: "Reading Sapiens by Yuval Noah Harari",
         isLink: true,
         url: "https://www.goodreads.com/en/book/show/23692271",
@@ -36,23 +31,38 @@ const onHandsList = [
     {
         task: "Trying to lose 22kgs (have lost 14 kgs already)",
         isLink: false,
-    }
-]
-
+    },
+];
 ---
 
 <Layout content={content} summary="What am I doing now?">
     <div class="flex flex-col gap-y-4">
         <h2 class="text-xl font-bold">Now</h2>
-        <p>Inspired by <a class={linkColor} href={siversSite} target="_blank">Derek Sivers</a> and <a class={linkColor} href={weichunSite} target="_blank">Weichun</a>, I am starting this page to share what I'm up to these days.</p>
-        <h3 class="text-lg font-bold"> On my hands</h3>
+        <p>
+            Inspired by <a class={linkColor} href={siversSite} target="_blank"
+                >Derek Sivers</a
+            > and <a class={linkColor} href={weichunSite} target="_blank"
+                >Weichun</a
+            >, I am starting this page to share what I'm up to these days.
+        </p>
+        <h3 class="text-lg font-bold">On my hands</h3>
         <ul class="flex flex-col gap-2 list-none">
             {
                 onHandsList.map((task) => (
                     <li>
-                        {
-                            task.isLink ? <a class={linkColor} href={task.url} target="_blank">{"-"} {task.task}</a> : <span>{"-"} {task.task}</span>
-                        }
+                        {task.isLink ? (
+                            <a
+                                class={linkColor}
+                                href={task.url}
+                                target="_blank"
+                            >
+                                {"-"} {task.task}
+                            </a>
+                        ) : (
+                            <span>
+                                {"-"} {task.task}
+                            </span>
+                        )}
                     </li>
                 ))
             }
