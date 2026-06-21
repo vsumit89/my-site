@@ -1,0 +1,106 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+import MobileNav from '../components/MobileNav.astro';
+import type { PostEntry, PostType } from '../lib/posts';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+  currentPage?: 'writing' | 'life' | 'work' | 'about';
+  posts: PostEntry[];
+  currentSlug?: string;
+  currentType?: PostType;
+}
+
+const { title, description, ogType, currentPage, posts, currentSlug, currentType } = Astro.props;
+---
+<BaseLayout {title} {description} {ogType}>
+  <div class="page-shell">
+
+    <Header {currentPage} />
+
+    <div class="body-area">
+      <div class="inner">
+
+        <!-- Sidebar column (desktop: scrolls independently; hidden on mobile) -->
+        <div class="sidebar-col">
+          <Sidebar {posts} {currentSlug} {currentType} />
+        </div>
+
+        <!-- Content column (desktop: scrolls independently; footer lives here) -->
+        <main class="content-col">
+          <slot />
+          <Footer />
+        </main>
+
+      </div>
+    </div>
+
+    <!-- Mobile-only floating nav (replaces sidebar on small screens) -->
+    <MobileNav {posts} {currentSlug} {currentType} />
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Desktop two-pane (≥961px) ──────────────────────────────────────── */
+  .page-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .body-area {
+    flex: 1;
+    min-height: 0;   /* critical: lets flex child shrink below content size */
+    overflow: hidden;
+  }
+
+  .inner {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    height: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .sidebar-col {
+    height: 100%;
+    overflow-y: auto;
+    padding: 40px 32px 40px 0;
+    border-right: 1px solid #e3dccc;
+  }
+
+  .content-col {
+    height: 100%;
+    overflow-y: auto;
+    padding: 40px 0 40px 48px;
+  }
+
+  /* ── Tablet + Mobile (≤960px) — single column, locked scroll ───────── */
+  @media (max-width: 960px) {
+    .inner {
+      grid-template-columns: 1fr;
+      padding: 32px 28px 64px;
+    }
+    .sidebar-col {
+      display: none;
+    }
+    .content-col {
+      padding: 0;
+    }
+  }
+
+  /* ── Mobile (≤640px) ─────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .inner {
+      padding: 24px 20px 80px;
+    }
+  }
+</style>

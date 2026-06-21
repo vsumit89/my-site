@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+<BaseLayout
+  title="About — Random Sumit"
+  description="Software engineer writing about things I build, things I learn, and life outside the screen."
+>
+  <div class="flex flex-col h-screen overflow-hidden">
+  <Header currentPage="about" />
+
+  <main class="flex-1 min-h-0 overflow-y-auto px-6 py-14 pb-20 mobile:px-5 mobile:py-10">
+    <div class="max-w-about mx-auto">
+
+      <h1 class="font-serif font-normal text-h1-fluid tracking-[-0.015em] mb-6 mt-0">About.</h1>
+
+      <p class="text-body leading-[1.7] my-3">
+        I am <strong class="font-semibold">Sumit Vishwakarma</strong>, a software engineer.
+        I build products, work on full-stack systems, and spend time learning things that
+        interest me — both inside and outside of work.
+      </p>
+
+      <p class="text-body leading-[1.7] my-3">
+        This site is a learning log. I write about things I have built, things I have figured out
+        technically, and things from life outside the screen — reading, running, strength training,
+        trying different kinds of food and coffee, and personal essays that do not fit anywhere else.
+      </p>
+
+      <p class="text-body leading-[1.7] my-3">
+        Writing here helps me gain clarity and stay accountable. If something here was useful,
+        write to me at{' '}
+        <a href="mailto:sumit.vishwakarma@ravenmail.io" class="text-accent hover:underline">
+          sumit.vishwakarma@ravenmail.io
+        </a>.
+        I read everything and answer most things.
+      </p>
+
+      <h2 class="font-serif text-[28px] tracking-[-0.01em] font-normal mt-10 mb-3">Now</h2>
+      <p class="text-body leading-[1.7] my-3">
+        Building side projects, reading broadly, running regularly, and trying to take at least
+        one afternoon a week completely offline.
+      </p>
+
+<div class="mt-8 pt-6 border-t border-line grid gap-1.5">
+        {[
+          { label: 'Email',    href: 'mailto:sumit.vishwakarma@ravenmail.io', display: 'sumit.vishwakarma@ravenmail.io' },
+          { label: 'GitHub',   href: '#', display: 'github.com/sumit' },
+          { label: 'LinkedIn', href: '#', display: 'linkedin.com/in/sumit' },
+        ].map(({ label, href, display }) => (
+          <a
+            href={href}
+            class="flex justify-between items-center py-3 border-b border-line-soft text-body gap-4 hover:text-accent transition-colors mobile:flex-col mobile:items-start mobile:gap-1"
+          >
+            <span>{label}</span>
+            <span class="font-mono text-caption text-ink-soft text-right mobile:text-left">{display}</span>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </main>
+
+  </div>
+</BaseLayout>

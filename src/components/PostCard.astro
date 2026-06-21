@@ -1,0 +1,69 @@
+---
+import type { PostType } from '../lib/posts';
+import { formatDate, postHref } from '../lib/posts';
+
+interface Props {
+  slug: string;
+  type: PostType;
+  title: string;
+  date: Date;
+  excerpt: string;
+  readTime: string;
+  tags: string[];
+  externalUrl?: string;
+  platform?: string;
+}
+
+const { slug, type, title, date, excerpt, readTime, tags, externalUrl, platform } = Astro.props;
+const href = externalUrl ?? postHref(type, slug);
+const isExternal = !!externalUrl;
+const typeLabel = type === 'life' ? 'Life' : 'Work';
+---
+
+<li class="py-7 border-t border-line first:border-t-0 mobile:py-6">
+
+  <div class="font-mono text-meta tracking-[0.06em] uppercase text-ink-soft mb-2 flex flex-wrap gap-2 items-center">
+    <span>{formatDate(date)}</span>
+    <span>·</span>
+    <span class="text-accent">{typeLabel}</span>
+    {platform && (
+      <>
+        <span>·</span>
+        <span class="text-ink-faded">{platform}</span>
+      </>
+    )}
+    <span>·</span>
+    <span>{readTime}</span>
+    {tags.slice(0, 2).map((tag: string) => (
+      <>
+        <span>·</span>
+        <span class="text-ink-faded">{tag}</span>
+      </>
+    ))}
+  </div>
+
+  <h2 class="font-serif font-normal text-h2-fluid mt-0 mb-2">
+    <a
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      class="hover:!text-accent transition-colors"
+    >
+      {title}{isExternal && <span class="inline-block ml-1.5 text-ink-faded text-nav">↗</span>}
+    </a>
+  </h2>
+
+  <p class="text-ink-2 text-small max-w-excerpt mb-3 mobile:text-nav">
+    {excerpt}
+  </p>
+
+  <a
+    href={href}
+    target={isExternal ? '_blank' : undefined}
+    rel={isExternal ? 'noopener noreferrer' : undefined}
+    class="text-caption text-accent font-mono tracking-[0.04em] hover:underline"
+  >
+    {isExternal ? `Read on ${platform ?? 'external site'} →` : 'Read →'}
+  </a>
+
+</li>

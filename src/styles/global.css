@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    @apply m-0 p-0 bg-paper text-ink font-sans overflow-x-hidden;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Firefox — thin scrollbar using design tokens */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(163, 156, 147, 0.36) transparent;
+  }
+
+  /* Webkit (Chrome, Safari, Edge) — replace default scrollbar entirely */
+  ::-webkit-scrollbar        { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track  { background: transparent; }
+  ::-webkit-scrollbar-thumb  {
+    background: rgba(163, 156, 147, 0.36);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(163, 156, 147, 0.72);
+  }
+  ::-webkit-scrollbar-corner { background: transparent; }
+
+  a           { @apply text-inherit no-underline; }
+  a:hover     { @apply text-accent; }
+  ::selection { @apply bg-accent text-white; }
+}
+
+@layer components {
+  /* ── Article prose ───────────────────────────────────────────────────
+     Applied to the <div> wrapping rendered MDX so that Tailwind tokens
+     style elements produced by the Markdown renderer.                    */
+
+  .article-prose h1 {
+    @apply font-serif font-normal text-h1-fluid mt-0 mb-3;
+  }
+  .article-prose .lede {
+    @apply font-serif italic text-lede text-ink-2 mt-0 mb-8;
+  }
+  .article-prose h2 {
+    @apply font-sans font-semibold text-prose-h2;
+    margin: 1.8em 0 0.4em;
+  }
+  .article-prose h3 {
+    @apply font-sans font-semibold text-prose-h3;
+    margin: 1.6em 0 0.3em;
+  }
+  .article-prose p {
+    @apply text-body leading-[1.7] my-[0.6em];
+  }
+  .article-prose p:first-of-type { @apply mt-0; }
+  .article-prose ul,
+  .article-prose ol {
+    @apply text-body leading-[1.7] pl-6 my-[0.6em];
+  }
+  .article-prose li    { @apply my-[0.2em]; }
+  .article-prose strong { @apply font-semibold; }
+  .article-prose em     { @apply italic; }
+
+  .article-prose a       { @apply text-ink-2; }
+  .article-prose a:hover { @apply text-accent; }
+
+  .article-prose blockquote {
+    @apply border-l-[3px] border-ink pl-4 py-1 my-[1.4em] font-serif italic text-lede text-ink-2;
+  }
+  .article-prose blockquote cite {
+    @apply block mt-2 font-mono not-italic text-caption uppercase text-ink-soft;
+  }
+  .article-prose blockquote cite::before { content: "— "; }
+
+  .article-prose hr {
+    @apply border-none h-px bg-line mx-auto my-9;
+    width: 80px;
+  }
+
+  .article-prose code {
+    @apply font-mono bg-paper-3 px-1.5 py-px rounded border border-line;
+    font-size: 0.86em;
+  }
+  .article-prose pre {
+    background: #1a1715;
+    color: #f4efe5;
+    @apply text-code leading-[1.65] p-5 rounded-md overflow-x-auto my-[1.4em] font-mono;
+    -webkit-overflow-scrolling: touch;
+  }
+  .article-prose pre code {
+    @apply bg-transparent border-none p-0;
+    font-size: inherit;
+    color: inherit;
+  }
+  /* Syntax token colours */
+  .article-prose pre .c { color: #a39c93; }
+  .article-prose pre .k { color: #ff9b73; }
+  .article-prose pre .s { color: #c8e6c9; }
+
+  .article-prose figure      { @apply my-7; }
+  .article-prose figure img  { @apply max-w-full block rounded; }
+  .article-prose figcaption  { @apply font-mono text-caption text-ink-soft text-center mt-2; }
+
+  /* Mobile overrides inside prose */
+  @media (max-width: 640px) {
+    .article-prose h2 { @apply text-[19px]; }
+    .article-prose h3 { @apply text-base; }
+    .article-prose blockquote { @apply pl-3 text-lg; }
+    .article-prose pre { @apply text-code-sm p-4 rounded; }
+  }
+}

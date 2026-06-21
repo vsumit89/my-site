@@ -1,0 +1,35 @@
+---
+type Status = 'shipped' | 'wip' | 'stuck' | 'killed' | 'next';
+
+interface Props {
+  status: Status;
+  label?: string;
+}
+
+const { status, label }: Props = Astro.props;
+
+const labelMap: Record<Status, string> = {
+  shipped: 'Shipped',
+  wip:     'In flight',
+  stuck:   'Stuck',
+  killed:  'Killed',
+  next:    'Next',
+};
+
+const colorMap: Record<Status, string> = {
+  shipped: 'text-status-shipped',
+  wip:     'text-status-wip',
+  stuck:   'text-accent',
+  killed:  'text-accent',
+  next:    'text-ink-soft',
+};
+
+const displayLabel = label ?? labelMap[status];
+const colorClass   = colorMap[status];
+---
+<li class="grid grid-cols-[100px_1fr] gap-4 p-4 border border-line rounded-md bg-paper-2 text-small mobile:grid-cols-1 mobile:gap-1">
+  <div class:list={['font-mono text-label uppercase pt-1 mobile:pt-0', colorClass]}>
+    {displayLabel}
+  </div>
+  <div class="text-body"><slot /></div>
+</li>

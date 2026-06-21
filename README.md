@@ -1,11 +1,51 @@
-# Astro with Tailwind
+# Random Sumit
+
+Personal site and learning log. Built with Astro and Tailwind CSS.
+
+## Stack
+
+- [Astro](https://astro.build) v4
+- Tailwind CSS v3 with a custom design token system
+- MDX for post content
+
+## Structure
 
 ```
-npm init astro -- --template with-tailwindcss
+src/
+  content/
+    life/     # Personal essays, running, reading, food, coffee
+    work/     # Tech, things built, engineering decisions
+  components/ # Header, PostCard, Sidebar, MobileNav, etc.
+  layouts/    # BaseLayout, TwoColLayout
+  lib/        # posts.ts — getAllPosts, getPostsForSection, helpers
+  pages/      # index, /life, /work, /about, [slug] routes
+  styles/     # global.css
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
+## Writing posts
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+Create an `.mdx` file in `src/content/life/` or `src/content/work/`:
 
-For complete setup instructions, please see our [Styling Guide](https://docs.astro.build/guides/styling#-tailwind).
+```yaml
+---
+title: "Post title"
+date: 2026-06-22
+excerpt: "One or two sentences shown on the listing page."
+readTime: "5 min"
+tags: ["tag"]
+
+# Optional: show this post in both sections
+showIn: ["life", "work"]
+
+# Optional: link out to an external platform instead of an internal page
+externalUrl: "https://randomsumit.substack.com/p/some-post"
+platform: "Substack"
+---
+```
+
+## Dev
+
+```bash
+npm install
+npm run dev
+```

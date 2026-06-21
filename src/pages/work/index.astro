@@ -1,0 +1,36 @@
+---
+import TwoColLayout from '../../layouts/TwoColLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllPosts, getPostsForSection } from '../../lib/posts';
+
+const allPosts  = await getAllPosts();
+const workPosts = getPostsForSection(allPosts, 'work');
+---
+<TwoColLayout
+  title="Work — Random Sumit"
+  description="Notes on shipping software, engineering process, and building products. By Sumit Vishwakarma."
+  currentPage="work"
+  posts={allPosts}
+>
+  <div class="font-mono text-label uppercase text-ink-faded mb-6">Work</div>
+
+  {workPosts.length === 0 ? (
+    <p class="text-ink-soft text-body">No posts yet — check back soon.</p>
+  ) : (
+    <ol class="list-none p-0 m-0">
+      {workPosts.map((post) => (
+        <PostCard
+          slug={post.slug}
+          type={post.type}
+          title={post.data.title}
+          date={post.data.date}
+          excerpt={post.data.excerpt}
+          readTime={post.data.readTime}
+          tags={post.data.tags}
+          externalUrl={post.data.externalUrl}
+          platform={post.data.platform}
+        />
+      ))}
+    </ol>
+  )}
+</TwoColLayout>

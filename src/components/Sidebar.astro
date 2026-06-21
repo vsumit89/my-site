@@ -1,0 +1,111 @@
+---
+import type { PostType } from '../lib/posts';
+import { formatDate, postHref } from '../lib/posts';
+
+interface SidebarPost {
+  slug: string;
+  type: PostType;
+  data: { title: string; date: Date; tags: string[] };
+}
+
+interface Props {
+  posts: SidebarPost[];
+  currentSlug?: string;
+  currentType?: PostType;
+}
+
+const { posts, currentSlug, currentType } = Astro.props;
+const recent = posts.slice(0, 5);
+const tagLabel: Record<PostType, string> = { life: 'Life', work: 'Work' };
+---
+
+<aside class="sidebar">
+  <div class="font-mono text-label uppercase text-ink-faded mb-3">Recent</div>
+  <ul class="sidebar-list list-none p-0 m-0">
+    {recent.map(post => {
+      const isCurrent = post.slug === currentSlug && post.type === currentType;
+      return (
+        <li class:list={['sidebar-item', isCurrent && 'current']}>
+          <a
+            href={postHref(post.type, post.slug)}
+            class:list={[
+              'block text-ink-2 leading-snug hover:text-accent',
+              isCurrent && '!text-ink font-medium',
+            ]}
+          >
+            <span class="font-mono text-label text-accent uppercase mr-1.5">
+              {tagLabel[post.type]}
+            </span>
+            <span class="text-nav">{post.data.title}</span>
+            <div class="font-mono text-label text-ink-faded mt-0.5">
+              {formatDate(post.data.date)}
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</aside>
+
+<style>
+  /* Desktop: plain stacked list — no sticky needed, parent column scrolls */
+  .sidebar {
+    font-size: 14px;
+  }
+  .sidebar-list .sidebar-item {
+    margin-bottom: 10px;
+  }
+
+  /* Tablet (≤960px): card wrapper, 2-column grid */
+  @media (max-width: 960px) {
+    .sidebar {
+      border: 1px solid #e3dccc;
+      border-radius: 8px;
+      padding: 18px 20px;
+      background: #fbf9f5;
+    }
+    .sidebar-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+    .sidebar-list .sidebar-item {
+      margin: 0;
+    }
+  }
+
+  /* Mobile (≤640px): horizontal scroll strip */
+  @media (max-width: 640px) {
+    .sidebar {
+      padding: 14px 16px;
+    }
+    .sidebar-list {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin: 0 -16px;
+      padding: 4px 16px 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      grid-template-columns: none;
+    }
+    .sidebar-list .sidebar-item {
+      flex: none;
+      scroll-snap-align: start;
+      margin: 0;
+    }
+    .sidebar-list .sidebar-item a {
+      display: block;
+      padding: 10px 14px;
+      background: #f7f4ee;
+      border: 1px solid #e3dccc;
+      border-radius: 6px;
+      min-width: 180px;
+      max-width: 240px;
+    }
+    .sidebar-list .sidebar-item.current a {
+      border-color: #b8451f;
+      background: #fbf9f5;
+    }
+  }
+</style>

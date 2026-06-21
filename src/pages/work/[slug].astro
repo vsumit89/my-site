@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import TwoColLayout from '../../layouts/TwoColLayout.astro';
+import Callout from '../../components/Callout.astro';
+import StatusList from '../../components/StatusList.astro';
+import StatusItem from '../../components/StatusItem.astro';
+import { getAllPosts, formatDate, postHref } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('work');
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const allPosts  = await getAllPosts();
+const workPosts = allPosts.filter(p => p.type === 'work');
+const idx       = workPosts.findIndex(p => p.slug === post.slug);
+const prev      = workPosts[idx + 1] ?? null;
+const next      = workPosts[idx - 1] ?? null;
+---
+<TwoColLayout
+  title={`${post.data.title} — Field Notes`}
+  description={post.data.excerpt}
+  ogType="article"
+  currentPage="work"
+  posts={allPosts}
+  currentSlug={post.slug}
+  currentType="work"
+>
+  <article class="max-w-article article-prose">
+
+    <div class="font-mono text-meta uppercase text-ink-soft mb-2 flex flex-wrap gap-2 items-center">
+      <span>{formatDate(post.data.date)}</span>
+      <span>·</span>
+      <span class="text-accent">Work</span>
+      <span>·</span>
+      <span>{post.data.readTime}</span>
+    </div>
+
+    <h1>{post.data.title}</h1>
+    <p class="lede">{post.data.excerpt}</p>
+
+    <Content components={{ Callout, StatusList, StatusItem }} />
+
+    {post.data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 mt-8 pt-6 border-t border-line">
+        {post.data.tags.map((tag: string) => (
+          <a
+            href="/work"
+            class="font-mono text-meta uppercase tracking-[0.06em] px-3 py-1.5 border border-line rounded-full text-ink-soft hover:text-accent hover:border-accent transition-colors"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+    )}
+
+    {(prev || next) && (
+      <div class="grid grid-cols-2 gap-4 mt-8 mobile:grid-cols-1">
+        {prev ? (
+          <a href={postHref(prev.type, prev.slug)} class="p-4 border border-line rounded-md bg-paper-2 block hover:border-accent transition-colors">
+            <div class="font-mono text-label uppercase text-ink-soft tracking-[0.06em]">← Older</div>
+            <div class="font-serif text-prose-h3 mt-1 text-ink leading-snug">{prev.data.title}</div>
+          </a>
+        ) : <div />}
+        {next && (
+          <a href={postHref(next.type, next.slug)} class="p-4 border border-line rounded-md bg-paper-2 block text-right hover:border-accent transition-colors mobile:text-left">
+            <div class="font-mono text-label uppercase text-ink-soft tracking-[0.06em]">Newer →</div>
+            <div class="font-serif text-prose-h3 mt-1 text-ink leading-snug">{next.data.title}</div>
+          </a>
+        )}
+      </div>
+    )}
+
+  </article>
+</TwoColLayout>

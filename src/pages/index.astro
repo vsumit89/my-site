@@ -1,91 +1,28 @@
 ---
-import Layout from "../layouts/main.astro";
+import TwoColLayout from '../layouts/TwoColLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getAllPosts } from '../lib/posts';
 
-let content = {
-  title: "Sumit Is Here",
-};
-
-const socialLinks = [
-  {
-    title: "github",
-    url: "https://github.com/vsumit89",
-  },
-  {
-    title: "twitter",
-    url: "https://twitter.com/vsumit030201",
-  },
-];
+const posts = await getAllPosts();
 ---
-
-<Layout content={content} summary="Introduction of the blog">
-  <div class="flex flex-col gap-y-4">
-    <h2 class="text-xl font-bold">I'm Sumit!</h2>
-    <p>Welcome to my little corner of the internet.</p>
-    <p>
-      I am based out of India and currently working as a software engineer at <a
-        href="https://ravenmail.io/"
-        target="_blank"
-        class="text-blue-600">Ravenmail</a
-      >. There I work on the product team.
-    </p>
-    <p>
-      In short, I love to build stuff on the internet. On a broader note, I am
-      interested in distributed systems and databases. I am also deeply invested
-      in systems and architectures and how each small component builds the whole
-      system around us.
-    </p>
-    <p>
-      Some of the notable projects that I have worked on are <a
-        href="https://github.com/vsumit89/log-ingestor"
-        target="_blank"
-        class="text-blue-600">Logswift</a
-      >, <a
-        href="https://github.com/vsumit89/notipy"
-        target="_blank"
-        class="text-blue-600">Notipy</a
-      > and <a
-        href="https://github.com/vsumit89/gophermap"
-        target="_blank"
-        class="text-blue-600">Gophermap</a
-      >
-    </p>
-    <p>
-      Previously, I worked as SDE2 at <a
-        href="https://popclub.co/"
-        class="text-blue-600">POP</a
-      > on a credit card onboarding platform <a
-        href="https://www.getpopcard.co/"
-        class="text-blue-600">popcard.co</a
-      > and as a fullstack developer at <a
-        href="https://factlymedia.com/"
-        class="text-blue-600">Factly</a
-      > on open source projects - <a
-        href="https://github.com/factly/dega"
-        target="_blank"
-        class="text-blue-600">Dega</a
-      > and <a
-        href="https://github.com/factly/kavach"
-        target="_blank"
-        class="text-blue-600">Kavach</a
-      >.
-    </p>
-    <p>In my free time, I love to watch Football and Anime.</p>
-    <p>
-      I'm all for connecting over our shared love for technology. Let's swap
-      coding tips, geek out over latest tech, and spark some meaningful
-      conversations :)
-    </p>
-    <ul class="mb-2 list-none">
-      {
-        socialLinks.map((link) => (
-          <li>
-            -
-            <a href={link.url} class="text-blue-600" target="_blank">
-              {link.title}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</Layout>
+<TwoColLayout
+  title="Random Sumit — A learning log by Sumit Vishwakarma"
+  currentPage="writing"
+  posts={posts}
+>
+  <ol class="list-none p-0 m-0">
+    {posts.map((post) => (
+      <PostCard
+        slug={post.slug}
+        type={post.type}
+        title={post.data.title}
+        date={post.data.date}
+        excerpt={post.data.excerpt}
+        readTime={post.data.readTime}
+        tags={post.data.tags}
+        externalUrl={post.data.externalUrl}
+        platform={post.data.platform}
+      />
+    ))}
+  </ol>
+</TwoColLayout>

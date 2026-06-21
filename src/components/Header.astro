@@ -1,0 +1,42 @@
+---
+interface Props {
+  currentPage?: 'writing' | 'life' | 'work' | 'about';
+}
+const { currentPage } = Astro.props;
+
+const navLinks = [
+  { href: '/',      label: 'Writing', key: 'writing' },
+  { href: '/life',  label: 'Life',    key: 'life'    },
+  { href: '/work',  label: 'Work',    key: 'work'    },
+  { href: '/about', label: 'About',   key: 'about'   },
+];
+---
+<header class="border-b border-line sticky top-0 z-10 bg-paper">
+  <div class="max-w-content mx-auto px-8 pt-9 pb-6 flex items-baseline justify-between gap-6 flex-wrap tablet:px-7 tablet:pt-8 tablet:pb-5 mobile:px-5 mobile:pt-6 mobile:pb-4 mobile:flex-col mobile:items-start mobile:gap-3">
+
+    <div>
+      <h1 class="font-serif italic text-display leading-none m-0">
+        <a href="/" class="hover:!text-ink">Random Sumit.</a>
+      </h1>
+      <p class="text-ink-soft text-nav mt-1.5 mb-0 max-w-[36ch] mobile:max-w-[30ch]">
+        A learning log. Things I build, things I figure out, and life outside the screen.
+      </p>
+    </div>
+
+    <nav class="flex gap-6 text-nav text-ink-2 flex-wrap mobile:w-full mobile:gap-4 mobile:pt-3 mobile:border-t mobile:border-line-soft">
+      {navLinks.map(({ href, label, key }) => (
+        <a
+          href={href}
+          aria-current={currentPage === key ? 'page' : undefined}
+          class:list={[
+            'border-b border-transparent pb-1 transition-colors hover:border-accent hover:text-accent',
+            currentPage === key && '!text-accent !border-accent',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+
+  </div>
+</header>

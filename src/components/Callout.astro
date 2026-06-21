@@ -1,0 +1,10 @@
+---
+interface Props {
+  icon?: string;
+}
+const { icon = '✺' } = Astro.props;
+---
+<div class="bg-paper-3 border border-line rounded-md py-4 px-5 my-[1.4em] flex gap-3 text-body leading-relaxed mobile:py-4 mobile:px-4">
+  <div class="text-lg flex-none text-accent leading-relaxed">{icon}</div>
+  <div class="text-body"><slot /></div>
+</div>

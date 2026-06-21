@@ -1,0 +1,282 @@
+---
+import type { PostType } from '../lib/posts';
+import { postHref, formatDate } from '../lib/posts';
+
+interface SidebarPost {
+  slug: string;
+  type: PostType;
+  data: { title: string; date: Date; tags: string[] };
+}
+
+interface Props {
+  posts: SidebarPost[];
+  currentSlug?: string;
+  currentType?: PostType;
+}
+
+const { posts, currentSlug, currentType } = Astro.props;
+const recent = posts.slice(0, 5);
+const tagLabel: Record<PostType, string> = { life: 'Life', work: 'Work' };
+---
+
+<div class="mobile-nav" aria-hidden="true">
+
+  <!-- Floating trigger pill -->
+  <button class="trigger" id="mn-trigger" aria-label="Recent posts">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <line x1="2" y1="3"  x2="12" y2="3"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="2" y1="7"  x2="12" y2="7"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="2" y1="11" x2="9"  y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Recent
+  </button>
+
+  <!-- Backdrop -->
+  <div class="backdrop" id="mn-backdrop"></div>
+
+  <!-- Bottom drawer -->
+  <div class="drawer" id="mn-drawer" role="dialog" aria-modal="true" aria-label="Recent posts">
+
+    <!-- Grip -->
+    <div class="grip"></div>
+
+    <!-- Header -->
+    <div class="drawer-header">
+      <span class="drawer-title">Recent</span>
+      <button class="close-btn" id="mn-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <line x1="3" y1="3" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="13" y1="3" x2="3"  y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Post list -->
+    <ul class="post-list">
+      {recent.map(post => {
+        const isCurrent = post.slug === currentSlug && post.type === currentType;
+        return (
+          <li>
+            <a
+              href={postHref(post.type, post.slug)}
+              class:list={['post-link', isCurrent && 'active']}
+            >
+              <span class="post-tag">{tagLabel[post.type]}</span>
+              <span class="post-title">{post.data.title}</span>
+              <span class="post-date">{formatDate(post.data.date)}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <!-- Quick nav -->
+    <div class="quick-nav">
+      <a href="/">All posts</a>
+      <a href="/life">Life</a>
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Hidden on desktop; shown on tablet and mobile */
+  .mobile-nav { display: none; }
+
+  @media (max-width: 960px) {
+    .mobile-nav { display: block; }
+
+    /* ── Floating trigger ── */
+    .trigger {
+      position: fixed;
+      bottom: 28px;
+      right: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1a1715;
+      color: #f7f4ee;
+      border: none;
+      border-radius: 100px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(26, 23, 21, 0.22);
+      transition: background 0.15s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .trigger:active { transform: scale(0.96); }
+    .trigger.open   { background: #b8451f; }
+
+    /* ── Backdrop ── */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(26, 23, 21, 0.36);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Drawer ── */
+    .drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: #fbf9f5;
+      border-radius: 16px 16px 0 0;
+      padding-bottom: 32px;
+      transform: translateY(100%);
+      transition: transform 0.28s cubic-bezier(0.32, 0, 0.08, 1);
+      max-height: 72vh;
+      overflow-y: auto;
+    }
+    .drawer.open { transform: translateY(0); }
+
+    /* Grip bar */
+    .grip {
+      width: 36px;
+      height: 4px;
+      background: #e3dccc;
+      border-radius: 4px;
+      margin: 12px auto 0;
+    }
+
+    /* Drawer header */
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid #e3dccc;
+    }
+    .drawer-title {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a39c93;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: #6b635a;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Post list */
+    .post-list {
+      list-style: none;
+      padding: 8px 0;
+      margin: 0;
+    }
+    .post-link {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #ede6d5;
+      text-decoration: none;
+    }
+    .post-link:last-child { border-bottom: none; }
+    .post-link.active .post-title { font-weight: 500; color: #1a1715; }
+    .post-link:hover .post-title  { color: #b8451f; }
+
+    .post-tag {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #b8451f;
+    }
+    .post-title {
+      font-size: 15px;
+      color: #3d3631;
+      line-height: 1.35;
+    }
+    .post-date {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 10px;
+      color: #a39c93;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Quick nav */
+    .quick-nav {
+      display: flex;
+      gap: 8px;
+      padding: 12px 20px 0;
+      border-top: 1px solid #e3dccc;
+      flex-wrap: wrap;
+    }
+    .quick-nav a {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border: 1px solid #e3dccc;
+      border-radius: 100px;
+      color: #6b635a;
+      text-decoration: none;
+    }
+    .quick-nav a:hover {
+      color: #b8451f;
+      border-color: #b8451f;
+    }
+  }
+</style>
+
+<script>
+  const trigger  = document.getElementById('mn-trigger');
+  const backdrop = document.getElementById('mn-backdrop');
+  const drawer   = document.getElementById('mn-drawer');
+  const closeBtn = document.getElementById('mn-close');
+
+  function openDrawer() {
+    drawer?.classList.add('open');
+    backdrop?.classList.add('open');
+    trigger?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer?.classList.remove('open');
+    backdrop?.classList.remove('open');
+    trigger?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  trigger?.addEventListener('click', () =>
+    drawer?.classList.contains('open') ? closeDrawer() : openDrawer()
+  );
+  backdrop?.addEventListener('click', closeDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+
+  // Close when a post link is tapped
+  drawer?.querySelectorAll('.post-link').forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+</script>
